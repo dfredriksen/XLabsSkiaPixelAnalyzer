@@ -38,6 +38,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\ColorDetector\ColorDetector.cs" />
     <Compile Include="src\EdgeDetector\EdgeDetector.cs" />
     <Compile Include="src\ObjectDetector\ObjectDetector.cs" />
     <Compile Include="src\PixelAnalyzer.cs" />

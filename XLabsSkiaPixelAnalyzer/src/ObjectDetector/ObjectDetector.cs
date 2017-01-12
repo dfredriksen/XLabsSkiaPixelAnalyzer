@@ -20,9 +20,9 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
             SetPixelFlags(pixelFlags);
         }
 
-        private void DetectObjects()
+        public void DetectObjects()
         {   
-            SetObjectMask(new List<int>());     
+            SetObjectMask(new List<int>(GetZeroedMask()));     
             SetObjects(new Dictionary<int, List<int>>());        
             
             int label = 1;
@@ -61,7 +61,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
 
 
        
-        private int DetermineObjectLabelValue(int index, int x, int y, int label)
+        protected int DetermineObjectLabelValue(int index, int x, int y, int label)
         {
             int value = label;                     
 
@@ -85,7 +85,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
 
 
 
-        private void ProcessObjectEquivalence(int value, int?[] adjacentPixels)
+        protected void ProcessObjectEquivalence(int value, int?[] adjacentPixels)
         {
             List<int> labels = new List<int>();
             foreach( int? label in adjacentPixels )
@@ -98,31 +98,32 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
             {
                 foreach( int label in labels )
                 {
-                    ConvertObjectLabels(label, value);
+                    if(label != 0)
+                        ConvertObjectLabels(label, value);
                 }
             }
         }
 
 
-        private void ConvertObjectLabels(int label, int value)
+        protected void ConvertObjectLabels(int label, int value)
         {
-            if(!_objects.ContainsKey(label))
-                throw new Exception("Label does not exist in object list.");
+            if(_objects.ContainsKey(label))
+            {
+                List<int> targetIndexes = new List<int>(_objects[label]);   
+                _objects.Remove(label);
+                if(!_objects.ContainsKey(value))
+                {
+                    _objects.Add(value, targetIndexes);
+                }
+                else
+                {
+                    _objects[value].AddRange(targetIndexes);
+                }
 
-            List<int> targetIndexes = new List<int>(_objects[label]);
-            _objects.Remove(label);
-            if(!_objects.ContainsKey(value))
-            {
-                _objects.Add(value, targetIndexes);
-            }
-            else
-            {
-                _objects[value].AddRange(targetIndexes);
-            }
-
-            foreach (int index in targetIndexes)
-            {
-                _objectMask[index] = value;
+                foreach (int index in targetIndexes)
+                {
+                    _objectMask[index] = value;
+                }
             }
         }
 

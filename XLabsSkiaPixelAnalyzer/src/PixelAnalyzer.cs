@@ -58,6 +58,15 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
                 Callback(getIndexX(index),getIndexY(index),index);               
         }
 
+        protected List<int> InvertMask(List<int> mask)
+        {
+            List<int> invertedMask = new List<int>(mask);
+            for(int index = 0; index < mask.Count; index++)
+                invertedMask[index] = invertedMask[index] == 1 ? 0 : 1;
+
+            return invertedMask;
+        }
+
         public void SetZeroedMask()
         {
             int totalPixels = GetTotalPixels();

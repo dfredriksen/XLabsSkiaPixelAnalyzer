@@ -22,8 +22,8 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
         }
 
         public void DetectOutline()
-        {        
-            SetOutlineMask(new List<int>());
+        {                    
+            SetOutlineMask(new List<int>(GetEdgeMask()));           
 
             ScanMask(
                 (int x, int y, int index) =>
@@ -38,10 +38,10 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
         private int DetectOutlinePixel(int x, int y, int index)
         {
             int [] adjacentMask = new int [4] {
-                (x > 0) ? _edgeMask[convertCoordsToIndex(x-1,y)] : 0,
-                (x < _width-1) ? _edgeMask[convertCoordsToIndex(x+1, y)] : 0,
-                (y > 0) ? _edgeMask[convertCoordsToIndex(x,y-1)] : 0,
-                (y < _height-1) ? _edgeMask[convertCoordsToIndex(x,y+1)] : 0
+                (x > 0) ? _outlineMask[convertCoordsToIndex(x-1,y)] : 0,
+                (x < _width-1) ? _outlineMask[convertCoordsToIndex(x+1, y)] : 0,
+                (y > 0) ? _outlineMask[convertCoordsToIndex(x,y-1)] : 0,
+                (y < _height-1) ? _outlineMask[convertCoordsToIndex(x,y+1)] : 0
             };
              
             foreach( int value in adjacentMask )
