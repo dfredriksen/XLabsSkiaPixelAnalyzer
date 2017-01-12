@@ -23,7 +23,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
 
         public void DetectOutline()
         {        
-            SetOutlineMask(GetZeroedMask());
+            SetOutlineMask(new List<int>());
 
             ScanMask(
                 (int x, int y, int index) =>
@@ -62,7 +62,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
             double intensity, threshold;
 
             threshold = Math.Floor(AverageDelta.value + (AverageDelta.standardDeviation * GetDeviations()));
-            SetEdgeMask(GetZeroedMask());
+            SetEdgeMask(new List<int>());
 
             ScanImagePixels(
                 (int x, int y) => 

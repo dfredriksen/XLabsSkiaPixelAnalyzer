@@ -22,7 +22,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
 
         private void DetectObjects()
         {   
-            SetObjectMask(new List<int>(GetZeroedMask()));     
+            SetObjectMask(new List<int>());     
             SetObjects(new Dictionary<int, List<int>>());        
             
             int label = 1;

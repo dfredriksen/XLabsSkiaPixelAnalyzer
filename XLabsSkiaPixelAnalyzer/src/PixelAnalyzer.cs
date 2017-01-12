@@ -12,6 +12,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
     {
         protected SKBitmap _sourceImage;   
         protected TotalData? _Totals;
+        protected MediaFile _mediaFile;
         protected delegate void ScanImageCallBackDelegate(int x, int y);
         protected delegate void ScanMaskCallBackDelegate(int x, int y, int index);
         protected List<int> _zeroedMask;
@@ -38,6 +39,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
             SKManagedStream stream;
             _width = 0;
             _height = 0;
+            SetMediaFile(mediaFile);
             SetTotals(null);
             stream = new SKManagedStream(mediaFile.Source);
             SetSourceImage(SKBitmap.Decode(stream));            
@@ -100,6 +102,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
             TotalData Totals = new TotalData();
             TotalValue AverageDelta;
 
+            Totals.values = new Dictionary<string, TotalValue>();
             globalAverageDelta = 0;
             ScanImagePixels( 
                 (int x, int y) =>
@@ -136,11 +139,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
             );
 
             AverageDelta = calculateAverageDeltas(localAverageDeltas, globalAverageDelta);
-
-            if(Totals.values.ContainsKey("AverageDelta"))
-                Totals.values["AverageDelta"] = AverageDelta;
-            else
-                Totals.values.Add("AverageDelta", AverageDelta);
+            Totals.values.Add("AverageDelta", AverageDelta);
             
             SetTotals(Totals);
         }
@@ -249,6 +248,16 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
         public SKBitmap GetSourceImage()
         {
             return _sourceImage;
+        }
+
+        public MediaFile GetMediaFile()
+        {
+            return _mediaFile;
+        }
+
+        public void SetMediaFile(MediaFile mediaFile)
+        {
+            _mediaFile = mediaFile;
         }
 
     }
