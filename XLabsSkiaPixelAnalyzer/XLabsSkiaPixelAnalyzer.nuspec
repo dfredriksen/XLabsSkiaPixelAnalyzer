@@ -1,18 +1,16 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>CYINT.XLabsSkiaPixelAnalyzer</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <authors>CYINT Technologies</authors>
+    <owners>CYINT Technologies</owners>
+    <projectUrl>https://github.com/dfredriksen/XLabsSkiaPixelAnalyzer</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <description>Useful package for working with mobile images using Xlabs MediaFile for mobile media pickers and SkiaSharp.</description>
+    <releaseNotes>Contributors welcome!</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>skiasharp mediapicker xlabs computer vision image processing</tags>
   </metadata>
 </package>
