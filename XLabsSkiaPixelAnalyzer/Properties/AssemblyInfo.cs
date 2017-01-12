@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("XLabsSkiaPixelAnalyzer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Useful package for working with mobile images using Xlabs MediaFile for mobile media pickers and SkiaSharp.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("CYINT Technologies")]
 [assembly: AssemblyProduct("XLabsSkiaPixelAnalyzer")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
