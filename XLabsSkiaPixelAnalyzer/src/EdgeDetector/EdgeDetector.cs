@@ -9,8 +9,7 @@ using SkiaSharp;
 namespace CYINT.XlabsSkiaPixelAnalyzer
 {
     class EdgeDetector : PixelAnalyzer
-    {
-        private TotalValue _AverageDelta;        
+    {   
         private List<int> 
             _outlineMask
             ,_edgeMask
