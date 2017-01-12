@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using XLabs.Platform.Services.Media;
 using SkiaSharp;
 
-namespace XlabsSkiaPixelAnalyzer
+namespace CYINT.XlabsSkiaPixelAnalyzer
 {
     class EdgeDetector : PixelAnalyzer
     {

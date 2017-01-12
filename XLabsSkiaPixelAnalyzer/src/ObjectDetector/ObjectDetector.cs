@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XLabs.Platform.Services.Media;
 
-namespace XlabsSkiaPixelAnalyzer
+namespace CYINT.XlabsSkiaPixelAnalyzer
 {
     class ObjectDetector : PixelAnalyzer
     {

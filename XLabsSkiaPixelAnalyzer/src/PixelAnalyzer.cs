@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SkiaSharp;
 using XLabs.Platform.Services.Media;
 
-namespace XlabsSkiaPixelAnalyzer
+namespace CYINT.XlabsSkiaPixelAnalyzer
 {
     class PixelAnalyzer
     {
