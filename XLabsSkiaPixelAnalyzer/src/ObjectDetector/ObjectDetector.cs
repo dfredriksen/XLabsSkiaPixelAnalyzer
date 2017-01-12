@@ -10,6 +10,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
     public class ObjectDetector : PixelAnalyzer
     {
         protected Dictionary<int, List<int>> _objects;
+        protected IEnumerable<KeyValuePair<int, int>> _objectsSorted;
         protected List<int> 
             _objectMask
             ,_pixelFlags
@@ -19,6 +20,7 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
         {
             SetPixelFlags(pixelFlags);
         }
+
 
         public void DetectObjects()
         {   
@@ -57,6 +59,9 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
                     }
                 }
             );
+
+            DetermineLargestObject();
+            sortObjectsByProximity();
         }
 
 
@@ -128,6 +133,82 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
         }
 
 
+        private void DetermineLargestObject()
+        {
+            int largestObjectId = 0;
+            int largestObjectCount = 0;
+
+            foreach( KeyValuePair<int, List<int>> objectData in _objects )
+            {
+                if(largestObjectCount < objectData.Value.Count)
+                {
+                    largestObjectId = objectData.Key;
+                    largestObjectCount = objectData.Value.Count;
+                }               
+            }
+
+            TotalData Totals = GetTotals();
+            TotalValue LargestObject = new TotalValue();
+            TotalValue LargestObjectCount = new TotalValue();
+            LargestObject.value = largestObjectId;
+            LargestObjectCount.value = largestObjectCount;
+            
+            Totals.values.Add("LargestObject", LargestObject);
+            Totals.values.Add("LargestObjectSize", LargestObjectCount);
+            SetTotals(Totals);
+        }
+
+
+        public void sortObjectsByProximity()
+        {
+            TotalData Totals; 
+            List<int> largestObjectsPixels;
+            Dictionary<int, int> objectDistances; 
+            int[] centerCoords;
+            int centerX, centerY, largestObjectId;
+            Totals = GetTotals();
+            largestObjectId = (int)Totals.values["LargestObject"].value;
+            largestObjectsPixels = _objects[largestObjectId];
+            objectDistances = new Dictionary<int, int>();
+            centerCoords = averageCoords(largestObjectsPixels);
+            centerX = centerCoords[0];
+            centerY = centerCoords[1];
+            foreach(KeyValuePair<int, List<int>> indexes in _objects)
+            {
+                int averageX, averageY;
+                int[] objectCoords = averageCoords(indexes.Value);
+                int distance;
+                averageX = objectCoords[0];
+                averageY = objectCoords[1];
+                distance = (int)Math.Sqrt((double)(averageX^2) + (double)(averageY^2));
+                objectDistances.Add(indexes.Key, distance);
+            }
+
+            _objectsSorted = objectDistances.OrderBy(pair => pair.Value);
+
+        }
+
+
+
+        public int[] averageCoords(List<int> indexes)
+        {
+            int totalX, totalY, x, y, count, averageX, averageY;
+            totalX = totalY = count = 0;
+         
+            foreach(int index in indexes)
+            {
+                x = getIndexX(index);
+                y = getIndexY(index);
+                totalX += x;
+                totalY += y;
+                count++;
+            }
+            
+            averageX = totalX / count;
+            averageY = totalY / count;
+            return new int[2] { averageX, averageY };
+        }
+
         public void SetPixelFlags(List<int> pixelFlags)
         {
             _pixelFlags = pixelFlags;
@@ -156,6 +237,11 @@ namespace CYINT.XlabsSkiaPixelAnalyzer
         public void SetObjects(Dictionary<int, List<int>> objects)
         {
             _objects = objects;
+        }
+
+        public IEnumerable<KeyValuePair<int, int>> GetSortedObjects()
+        {
+            return _objectsSorted;
         }
 
         public Dictionary<int, List<int>> GetObjects()
