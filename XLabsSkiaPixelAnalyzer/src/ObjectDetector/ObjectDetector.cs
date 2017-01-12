@@ -7,7 +7,7 @@ using XLabs.Platform.Services.Media;
 
 namespace CYINT.XlabsSkiaPixelAnalyzer
 {
-    class ObjectDetector : PixelAnalyzer
+    public class ObjectDetector : PixelAnalyzer
     {
         protected Dictionary<int, List<int>> _objects;
         protected List<int> 

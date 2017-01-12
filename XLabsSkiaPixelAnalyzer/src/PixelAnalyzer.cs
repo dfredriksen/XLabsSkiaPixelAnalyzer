@@ -8,7 +8,7 @@ using XLabs.Platform.Services.Media;
 
 namespace CYINT.XlabsSkiaPixelAnalyzer
 {
-    class PixelAnalyzer
+    public class PixelAnalyzer
     {
         protected SKBitmap _sourceImage;   
         protected TotalData? _Totals;

@@ -8,7 +8,7 @@ using SkiaSharp;
 
 namespace CYINT.XlabsSkiaPixelAnalyzer
 {
-    class EdgeDetector : PixelAnalyzer
+    public class EdgeDetector : PixelAnalyzer
     {   
         private List<int> 
             _outlineMask
